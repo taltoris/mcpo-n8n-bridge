@@ -1,0 +1,42 @@
+services:
+  n8n:
+    container_name: n8n
+    
+    ports:
+      - "5678:5678"
+    
+    volumes: 
+      - n8n_data:/home/node/.n8nn
+
+    restart: unless-stopped
+    environment:
+      - N8N_COMMUNITY_PACKAGES_ALLOW_TOOL_USAGE=true
+
+  mcpo-n8n-bridge:
+    build: ./
+    container_name: mcpo-n8n-bridge
+    ports:
+      - "3002:3002"
+      - MCPO_BASE=http://mcpo:8000
+    networks:
+      - app-network
+    depends_on:
+      - mcpo
+  
+  mcpo:
+    build:
+      context: ./mcpo
+      dockerfile: Dockerfile
+    container_name: mcpo
+    ports:
+      - "8000:8000"
+    volumes:
+      # Mount config file from open-webui directory
+      - ./config.json:/app/config.json:ro
+
+    restart: unless-stopped
+    
+    command: ["--host", "0.0.0.0", "--port", "8000", "--config", "/app/config.json"]
+    
+    networks:
+      - app-network
