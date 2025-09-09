@@ -1,0 +1,36 @@
+{
+  "mcpServers": {
+    "memory": {
+      "command": "npx",
+      "args": [
+        "@modelcontextprotocol/server-memory"
+      ],
+      "env": {
+        "MCP_MEMORY_CHROMA_PATH": "/app/data/chroma_db",
+        "MCP_MEMORY_BACKUPS_PATH": "/app/data/backups"
+      }
+    },
+    "time": {
+      "command": "uv",
+      "args": [
+        "run",
+        "mcp-server-time",
+        "--local-timezone=America/New_York"
+      ]
+    },
+    "filesystem": {
+      "disabled": true,
+      "command": "npx",
+      "args": [
+        "@modelcontextprotocol/server-filesystem",
+        "/app/sandbox"
+      ]
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": [
+        "@modelcontextprotocol/server-sequential-thinking"
+      ]
+    }
+  }
+}

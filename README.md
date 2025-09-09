@@ -1,6 +1,6 @@
 # MCPO N8N Bridge
 
-A Docker container that bridges MCPO (Model Context Protocol Output) to N8N by converting MCP output into an N8N-compatible format for workflow automation.
+A Docker container that bridges MCPO (Model Context Protocol server preferred for OpenWebUI) to N8N by converting MCP output into an N8N-compatible format for workflow automation.
 
 ## Overview
 
